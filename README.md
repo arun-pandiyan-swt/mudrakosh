@@ -21,10 +21,11 @@
 ```
 mudrakosh/
 ├── apps/
-│   ├── frontend/              # Directorate Desktop Web Portal (Port 5173)
+│   ├── frontend/              # Directorate Desktop Web Portal & Unified Field PWA (Port 5173)
 │   │   ├── src/
 │   │   │   ├── components/
-│   │   │   │   ├── Header.tsx                 # Top Gov bar, role switcher, language toggle
+│   │   │   │   ├── Header.tsx                 # Top Gov bar, role switcher, same-port view toggle
+│   │   │   │   ├── LoginView.tsx              # First Screen: GIGW & e-Pramaan Secure Login Gateway
 │   │   │   │   ├── DashboardView.tsx          # Screen 02: Stock valuation, KPIs, 5-step flow
 │   │   │   │   ├── StockLedgerView.tsx        # Screen 04: Perpetual stock catalog & audit drawer
 │   │   │   │   ├── InwardGRNWizard.tsx        # Screen 03: 3-step GRN intake & batch QR printer
@@ -32,32 +33,34 @@ mudrakosh/
 │   │   │   │   ├── DepartmentIndentsView.tsx  # Screen 06: Online indenting & Director sanctions
 │   │   │   │   ├── DispatchChallanView.tsx    # Screen 07: Cryptographic e-Challan & manifest
 │   │   │   │   ├── StatutoryReportsView.tsx   # Screen 09: CAG Form 18 compliance exports
-│   │   │   │   └── AlertsView.tsx             # Screen 08: Early warning feeds & thresholds
+│   │   │   │   ├── AlertsView.tsx             # Screen 08: Early warning feeds & thresholds
+│   │   │   │   └── mobile/                    # Integrated Field Mobile Views (Same Port 5173)
+│   │   │   │       ├── MobileHeader.tsx       # Handheld header & online/offline sync badge
+│   │   │   │       ├── QRScannerView.tsx      # Warehouse floor camera inspection
+│   │   │   │       ├── GatePassView.tsx       # Security gate intake & weighbridge
+│   │   │   │       ├── DriverManifestView.tsx # Delivery carrier driver route & checklist
+│   │   │   │       └── ProofOfDeliveryView.tsx# Touch/Stylus POD signature pad
 │   │   │   ├── data/
 │   │   │   │   └── mockData.ts                # Comprehensive Assam Gov-Tech dummy data & i18n
-│   │   │   ├── App.tsx
+│   │   │   ├── App.tsx                        # Unified App (Login Screen first, Web + Mobile)
 │   │   │   ├── main.tsx
 │   │   │   └── index.css
 │   │   ├── package.json
 │   │   ├── tailwind.config.js
-│   │   └── vite.config.ts
+│   │   └── vite.config.ts                     # Port 5173
 │   │
-│   └── mobile/                # Field PWA / Mobile Handheld App (Port 5174)
+│   └── mobile/                                # Standalone Field PWA (Configured to Port 5173)
 │       ├── src/
 │       │   ├── components/
-│       │   │   ├── MobileHeader.tsx           # Status bar, online/offline sync badge, role select
-│       │   │   ├── QRScannerView.tsx          # Warehouse floor camera viewfinder & reel inspection
-│       │   │   ├── GatePassView.tsx           # Security gate intake, weighbridge (gross/tare/net)
-│       │   │   ├── DriverManifestView.tsx     # Delivery carrier driver route & checklist
-│       │   │   └── ProofOfDeliveryView.tsx    # Touch/Stylus Canvas signature pad & cryptographic POD
-│       │   ├── data/
-│       │   │   └── mockData.ts                # Unified domain data models
+│       │   │   ├── LoginView.tsx              # First Screen: Mobile Secure Login Gateway
+│       │   │   ├── MobileHeader.tsx
+│       │   │   ├── QRScannerView.tsx
+│       │   │   ├── GatePassView.tsx
+│       │   │   ├── DriverManifestView.tsx
+│       │   │   └── ProofOfDeliveryView.tsx
 │       │   ├── App.tsx
-│       │   ├── main.tsx
-│       │   └── index.css
-│       ├── package.json
-│       ├── tailwind.config.js
-│       └── vite.config.ts
+│       │   └── ...
+│       └── vite.config.ts                     # Port 5173
 │
 ├── MUDRAKOSH_MASTER_SOLUTION_DOCUMENT.md      # Solution Architecture & PRD
 ├── MudraKosh_Proof_of_Work_NESFIC_D39.pdf     # Directorate Proof of Work & Wireframe Specs
@@ -68,21 +71,23 @@ mudrakosh/
 
 ## 🚀 Quick Start Guide
 
-### 1. Launch Directorate Desktop Portal (`apps/frontend`)
+### 1. Launch MudraKosh Unified Platform (`apps/frontend`)
 ```bash
 cd apps/frontend
 npm install
 npm run dev
 ```
 👉 Open browser at: **`http://localhost:5173`**
+- **Initial View:** Opens immediately to the **Secure Login Screen** (Directorate and Field personas supported).
+- **Same Port for Web & Mobile:** After logging in, switch seamlessly between the **Directorate Desktop Portal** and the **Field Mobile App** directly on port `5173` via the top header button or `?view=mobile`.
 
-### 2. Launch Field Mobile PWA (`apps/mobile`)
+### 2. Standalone Field Mobile PWA (`apps/mobile`)
 ```bash
 cd apps/mobile
 npm install
 npm run dev
 ```
-👉 Open browser at: **`http://localhost:5174`**
+👉 Open browser at: **`http://localhost:5173`** (standardized same port)
 
 ---
 

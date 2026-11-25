@@ -14,7 +14,8 @@ import {
   Search,
   ExternalLink,
   LogOut,
-  User
+  User,
+  Smartphone
 } from 'lucide-react';
 import { I18N } from '../data/mockData';
 
@@ -29,6 +30,8 @@ interface HeaderProps {
   onOpenMobilePreview?: () => void;
   currentUser?: string;
   onLogout?: () => void;
+  onToggleViewMode?: () => void;
+  viewMode?: 'desktop' | 'mobile';
 }
 
 export const ROLES = [
@@ -36,6 +39,8 @@ export const ROLES = [
   { id: 'Store Officer', label: 'Store Officer', tag: 'Verification & Audit' },
   { id: 'Storekeeper', label: 'Central Storekeeper', tag: 'Intake & QR Tagging' },
   { id: 'Press Supervisor', label: 'Press Floor Supervisor', tag: 'Requisition & Spoilage' },
+  { id: 'Gate Guard', label: 'Security Gate Guard', tag: 'Weighbridge & Gate Pass' },
+  { id: 'Delivery Driver', label: 'Delivery Carrier Driver', tag: 'Route & e-Challan POD' },
   { id: 'Recipient DDO', label: 'Recipient Dept DDO', tag: 'Online Indent & POD' },
   { id: 'Super Admin', label: 'Super Admin', tag: 'Full Control' }
 ];
@@ -49,7 +54,9 @@ export const Header: React.FC<HeaderProps> = ({
   setActiveRole,
   unreadAlertCount,
   currentUser,
-  onLogout
+  onLogout,
+  onToggleViewMode,
+  viewMode = 'desktop'
 }) => {
   const t = I18N[lang];
 
@@ -183,15 +190,16 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
             
-            <a 
-              href="http://localhost:5174" 
-              target="_blank" 
-              rel="noreferrer"
-              className="hidden lg:flex items-center space-x-1.5 text-xs font-semibold bg-gold-500/10 hover:bg-gold-500/20 text-gold-400 border border-gold-500/40 px-3 py-1.5 rounded-lg transition"
-            >
-              <span>Launch Mobile App (Port 5174)</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            {onToggleViewMode && (
+              <button 
+                onClick={onToggleViewMode}
+                className="flex items-center space-x-1.5 text-xs font-semibold bg-gold-500/10 hover:bg-gold-500/20 text-gold-400 border border-gold-500/40 px-3 py-1.5 rounded-lg transition"
+                title="Switch between Desktop Portal and Field Mobile App on Port 5173"
+              >
+                <Smartphone className="w-3.5 h-3.5 text-gold-400" />
+                <span>Field Mobile App</span>
+              </button>
+            )}
           </div>
         </div>
 

@@ -148,6 +148,24 @@ export interface AlertNotification {
   actionUrl: string;
 }
 
+export interface GatePassEntry {
+  id: string;
+  passNumber: string;
+  type: 'INWARD' | 'OUTWARD';
+  vehicleNumber: string;
+  driverName: string;
+  driverPhone: string;
+  supplierOrDepartment: string;
+  referenceDocNumber: string; // PO No. or e-Challan No.
+  entryTime: string;
+  exitTime?: string;
+  grossWeightKg?: number;
+  tareWeightKg?: number;
+  netWeightKg?: number;
+  securityGuard: string;
+  status: 'At Gate (Gross Weight Checked)' | 'Unloading in Bay' | 'Completed / Exited';
+}
+
 // Initial Mock Data
 export const INITIAL_STOCK_ITEMS: StockItem[] = [
   {
@@ -839,6 +857,58 @@ export const INITIAL_ALERTS: AlertNotification[] = [
     severity: 'blue',
     read: true,
     actionUrl: '/inventory/inward'
+  }
+];
+
+export const INITIAL_GATE_PASSES: GatePassEntry[] = [
+  {
+    id: 'gp-1',
+    passNumber: 'IN-GP-2026-1092',
+    type: 'INWARD',
+    vehicleNumber: 'AS-01-MC-8812',
+    driverName: 'Bipul Hazarika',
+    driverPhone: '+91-98540-33219',
+    supplierOrDepartment: 'Nagaon Paper Mill Reserve Depository / HPC',
+    referenceDocNumber: 'PO/DPS/2026/0411',
+    entryTime: '2026-11-24 10:15',
+    grossWeightKg: 14200,
+    tareWeightKg: 5800,
+    netWeightKg: 8400,
+    securityGuard: 'Havildar T. Gogoi (Gate Security)',
+    status: 'Completed / Exited'
+  },
+  {
+    id: 'gp-3',
+    passNumber: 'IN-GP-2026-1094',
+    type: 'INWARD',
+    vehicleNumber: 'WB-23-C-9910',
+    driverName: 'Suraj Mondal',
+    driverPhone: '+91-94310-44912',
+    supplierOrDepartment: 'Ballarpur Industries Ltd (BILT)',
+    referenceDocNumber: 'PO/DPS/2026/0428',
+    entryTime: '2026-11-24 15:20',
+    grossWeightKg: 18450,
+    tareWeightKg: 8200,
+    netWeightKg: 10250,
+    securityGuard: 'Havildar T. Gogoi (Gate Security)',
+    status: 'Unloading in Bay'
+  },
+  {
+    id: 'gp-2',
+    passNumber: 'OUT-GP-2026-0612',
+    type: 'OUTWARD',
+    vehicleNumber: 'AS-01-GC-4482',
+    driverName: 'Rupam Borah',
+    driverPhone: '+91-98642-11002',
+    supplierOrDepartment: 'General Administration Dept (Janata Bhawan)',
+    referenceDocNumber: 'ECH-2026-0781',
+    entryTime: '2026-11-24 13:45',
+    exitTime: '2026-11-24 14:10',
+    grossWeightKg: 5200,
+    tareWeightKg: 3400,
+    netWeightKg: 1800,
+    securityGuard: 'Havildar T. Gogoi (Gate Security)',
+    status: 'Completed / Exited'
   }
 ];
 

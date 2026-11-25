@@ -36,6 +36,8 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, setLang }) 
     'Store Officer': { email: 'storeofficer.dps@assam.gov.in', name: 'D. K. Baruah' },
     'Storekeeper': { email: 'storekeeper.guw@assam.gov.in', name: 'Pranjal Saikia' },
     'Press Supervisor': { email: 'press.supervisor@assam.gov.in', name: 'Manabendra Sarma' },
+    'Gate Guard': { email: 'gate.security@assam.gov.in', name: 'Havildar T. Gogoi' },
+    'Delivery Driver': { email: 'driver.fleet@assam.gov.in', name: 'Rupam Borah' },
     'Recipient DDO': { email: 'gad.nodal@assam.gov.in', name: 'Kabita Das, ACS' },
     'Super Admin': { email: 'admin.mudrakosh@assam.gov.in', name: 'System Administrator' }
   };

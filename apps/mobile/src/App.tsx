@@ -4,13 +4,14 @@ import { GatePassView } from './components/GatePassView';
 import { QRScannerView } from './components/QRScannerView';
 import { DriverManifestView } from './components/DriverManifestView';
 import { ProofOfDeliveryView } from './components/ProofOfDeliveryView';
+import { LoginView } from './components/LoginView';
 import { 
   Truck, 
   QrCode, 
   Navigation, 
-  FileCheck2,
-  ExternalLink,
-  Laptop
+  FileCheck2, 
+  Laptop,
+  LogOut
 } from 'lucide-react';
 import { 
   INITIAL_STOCK_ITEMS, 
@@ -22,14 +23,39 @@ import {
 } from './data/mockData';
 
 export const App: React.FC = () => {
-  const [currentTab, setCurrentTab] = useState<string>('scanner');
+  const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  
+  // FIRST SCREEN MUST BE LOGIN SCREEN by default
+  const initialAuth = urlParams.get('auth') === 'true';
+  const initialTab = urlParams.get('tab') || 'scanner';
+
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAuth);
+  const [currentTab, setCurrentTab] = useState<string>(initialTab);
   const [lang, setLang] = useState<'en' | 'as'>('en');
   const [activeRole, setActiveRole] = useState<string>('Warehouse Storekeeper');
+  const [currentUser, setCurrentUser] = useState<string>('Pranjal Saikia');
   const [isOnline, setIsOnline] = useState<boolean>(true);
 
   const [stockItems, setStockItems] = useState<StockItem[]>(INITIAL_STOCK_ITEMS);
   const [dispatches, setDispatches] = useState<DispatchChallan[]>(INITIAL_DISPATCHES);
   const [gatePasses, setGatePasses] = useState<GatePassEntry[]>(INITIAL_GATE_PASSES);
+
+  const handleLogin = (role: string, username: string) => {
+    setActiveRole(role);
+    setCurrentUser(username);
+    setIsAuthenticated(true);
+    if (role === 'Gate Guard') {
+      setCurrentTab('gate');
+    } else if (role === 'Delivery Driver') {
+      setCurrentTab('manifest');
+    } else {
+      setCurrentTab('scanner');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
 
   const handleAddGatePass = (newPass: GatePassEntry) => {
     setGatePasses(prev => [newPass, ...prev]);
@@ -50,6 +76,17 @@ export const App: React.FC = () => {
     }));
   };
 
+  // FIRST SCREEN: LOGIN SCREEN
+  if (!isAuthenticated) {
+    return (
+      <LoginView
+        onLogin={handleLogin}
+        lang={lang}
+        setLang={setLang}
+      />
+    );
+  }
+
   const bottomNavItems = [
     { id: 'scanner', label: lang === 'en' ? 'Scanner' : 'স্কেনাৰ', icon: QrCode },
     { id: 'gate', label: lang === 'en' ? 'Gate Pass' : 'প্ৰৱেশদ্বাৰ', icon: Truck },
@@ -58,7 +95,7 @@ export const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 flex justify-center items-center py-0 sm:py-6 sm:px-4 font-sans">
+    <div className="min-h-screen bg-slate-900 flex justify-center items-center py-0 sm:py-6 sm:px-4 font-sans relative">
       {/* Mobile Device Frame */}
       <div className="w-full max-w-md bg-slate-100 min-h-screen sm:min-h-[820px] sm:max-h-[860px] sm:rounded-[36px] shadow-2xl flex flex-col overflow-hidden border-0 sm:border-8 sm:border-slate-800 relative">
         {/* Mobile Header */}
@@ -134,18 +171,24 @@ export const App: React.FC = () => {
         </nav>
       </div>
 
-      {/* Desktop Link to Web Portal */}
-      <div className="hidden lg:block fixed bottom-6 left-6 z-50">
+      {/* Quick Action Controls (Switch & Logout) */}
+      <div className="fixed bottom-6 left-6 z-50 flex items-center space-x-3">
         <a
           href="http://localhost:5173"
-          target="_blank"
-          rel="noreferrer"
           className="bg-navy-800/95 hover:bg-navy-900 text-white border border-gold-500/50 px-4 py-2.5 rounded-xl shadow-2xl flex items-center space-x-2 text-xs font-bold transition backdrop-blur-md"
         >
           <Laptop className="w-4 h-4 text-gold-400" />
           <span>Switch to Desktop Directorate Portal (Port 5173)</span>
-          <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
         </a>
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-950/90 hover:bg-red-900 text-red-200 border border-red-800/60 px-3 py-2.5 rounded-xl shadow-2xl flex items-center space-x-1.5 text-xs font-bold transition"
+          title="Log Out of MudraKosh"
+        >
+          <LogOut className="w-4 h-4 text-red-400" />
+          <span className="hidden sm:inline">Log Out</span>
+        </button>
       </div>
     </div>
   );
