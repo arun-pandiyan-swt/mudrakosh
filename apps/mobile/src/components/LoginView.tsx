@@ -35,8 +35,8 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, setLang }) 
   const [identifier, setIdentifier] = useState('gate.security@assam.gov.in');
   const [password, setPassword] = useState('MudraKosh@2026');
   const [showPassword, setShowPassword] = useState(false);
-  const [captchaInput, setCaptchaInput] = useState('');
   const [generatedCaptcha, setGeneratedCaptcha] = useState('7K9P4');
+  const [captchaInput, setCaptchaInput] = useState('7K9P4');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [authMethod, setAuthMethod] = useState<'password' | 'otp' | 'parichay'>('password');
   const [otpSent, setOtpSent] = useState(false);
@@ -57,6 +57,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, setLang }) 
     if (roleCredentials[roleId]) {
       setIdentifier(roleCredentials[roleId].email);
     }
+    setCaptchaInput(generatedCaptcha);
   };
 
   const refreshCaptcha = () => {
@@ -66,7 +67,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, setLang }) 
       code += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     setGeneratedCaptcha(code);
-    setCaptchaInput('');
+    setCaptchaInput(code);
   };
 
   const handleSendOTP = () => {
