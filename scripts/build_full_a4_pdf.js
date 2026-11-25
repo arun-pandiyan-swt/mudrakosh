@@ -266,6 +266,108 @@ const html = `<!DOCTYPE html>
       height: 100%;
       object-fit: contain;
     }
+
+    /* Workflow Page 5 Styles */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .stage-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 7px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .stage-card::after {
+      content: "➔";
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 900;
+      color: #0284c7;
+      z-index: 10;
+      background: #ffffff;
+      border-radius: 50%;
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #cbd5e1;
+    }
+    .stage-card:last-child::after {
+      display: none;
+    }
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-bottom: 5px;
+      width: fit-content;
+    }
+    .stage-title {
+      font-size: 10px;
+      font-weight: 800;
+      color: #0f2942;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+    .stage-actor {
+      font-size: 8px;
+      font-weight: 700;
+      color: #0284c7;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 6px 0;
+      font-size: 8px;
+      color: #334155;
+      line-height: 1.35;
+    }
+    .step-list li {
+      margin-bottom: 3px;
+      padding-left: 10px;
+      position: relative;
+    }
+    .step-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0284c7;
+      font-weight: bold;
+    }
+    .artifact-pill {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 3px 5px;
+      font-size: 7.5px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .artifact-pill strong {
+      color: #0f2942;
+    }
   </style>
 </head>
 <body>
@@ -325,7 +427,7 @@ const html = `<!DOCTYPE html>
             <strong>9</strong><span>Web 4: Department Indent &amp; e-Challan</span>
             <strong>4</strong><span>Solution architecture &amp; transactional data flow</span>
             <strong>10</strong><span>Web 5: Stock Ledger &amp; Immutable Audit</span>
-            <strong>5</strong><span>End-to-end user journey: delivery to sign-off</span>
+            <strong>5</strong><span>Workflow design: end-to-end operational movement</span>
             <strong>11</strong><span>Web 6: Secure Authentication &amp; RBAC</span>
             <strong>6</strong><span>Web 1: Central Store &amp; Directorate Dashboard</span>
             <strong>12</strong><span>Mobile Suite: Scanner, Gate &amp; Proof-of-Delivery</span>
@@ -611,92 +713,215 @@ const html = `<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- ================= PAGE 5: USER JOURNEY ================= -->
-  <div class="page">
+  <!-- ================= PAGE 5: WORKFLOW DESIGN ================= -->
+  <div class="page" style="justify-content: space-between; padding: 10mm 14mm 8mm 14mm;">
     <div class="top-header">
       <div class="top-header-left">
-        User journey <span>From inward delivery to confirmed departmental receipt</span>
+        Workflow design <span>End-to-end multi-actor movement tracking: from supplier consignment to digital proof-of-delivery</span>
       </div>
       <div class="top-header-right">Proof of Work</div>
     </div>
 
-    <p style="font-size: 9.5px; color: #475569; margin-bottom: 12px;">
-      How material moves from supplier delivery through store intake, press conversion, and outward dispatch to confirmed delivery.
-    </p>
-
-    <!-- 7 Steps Circular Process -->
-    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 16px;">
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #0284c7; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">1</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">Inward Delivery</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Supplier truck arrives with paper reels &amp; PO challan at gate.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #0284c7;">Supplier / Gate</span>
-      </div>
-
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #0284c7; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">2</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">Quality &amp; GRN</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Storekeeper checks GSM, weight, logs GRN, Store Officer approves.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #0284c7;">Storekeeper</span>
-      </div>
-
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #0284c7; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">3</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">QR Bin Tagging</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Auto-prints QR tags for physical reels &amp; warehouse racks.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #0284c7;">System / Store</span>
-      </div>
-
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #0284c7; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">4</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">Press Work Order</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Paper issued to press; copies &amp; wastage recorded; unused returned.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #0284c7;">Press Supervisor</span>
-      </div>
-
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #0284c7; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">5</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">Indent Sanction</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Department indents online; DPS Director reviews &amp; sanctions quota.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #0284c7;">DPS Director</span>
-      </div>
-
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #0284c7; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">6</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">QR e-Challan</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Store packs goods and prints dispatch e-Challan with verification QR.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #0284c7;">Dispatch Unit</span>
-      </div>
-
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 6px; background: #f8fafc; text-align: center;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #15803d; color: white; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">7</div>
-        <strong style="font-size: 9.5px; display: block; color: #0f2942;">Receipt Confirmed</strong>
-        <p style="font-size: 8px; color: #475569; margin: 3px 0 4px 0;">Recipient scans QR on phone; signed ack auto-syncs ledger.</p>
-        <span style="font-size: 8px; font-weight: 700; color: #15803d;">Recipient DDO</span>
+    <!-- Summary Intro Banner -->
+    <div style="background: #f8fafc; border-left: 3px solid #d49b24; padding: 5px 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+      <p style="font-size: 9px; color: #334155; margin: 0; line-height: 1.35;">
+        <strong>Closed-Loop Operational Lifecycle:</strong> MudraKosh synchronizes 6 government personas across physical weighbridges, QR-tagged store bays, machine print lines, online departmental indenting, and mobile field dispatches with tamper-evident cryptographic sign-off.
+      </p>
+      <div style="display: flex; gap: 8px; font-size: 8px; font-weight: 700; white-space: nowrap;">
+        <span style="color: #0284c7;">● Physical Flow (MT/Reels)</span>
+        <span style="color: #15803d;">● Cryptographic Audit (e-Challan)</span>
+        <span style="color: #b45309;">● 100% Closed Loop</span>
       </div>
     </div>
 
-    <!-- 3 Bottom Operational Case Study Cards -->
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; background: #ffffff;">
-        <h4 style="color: #0f2942; font-size: 10px; text-transform: uppercase; margin-bottom: 4px;">Example Transaction in Prototype</h4>
-        <p style="font-size: 9px; color: #475569; margin: 0; line-height: 1.4;">
-          Store receives 500 reams Maplitho paper; Kamrup DC office indents 100 reams; Store Officer approves; Store dispatches with Challan #8812; DC office scans QR; balance 400 instantly reflected across the state ledger.
-        </p>
+    <!-- 5-Stage Multi-Actor Process Flow Pipeline -->
+    <div class="flow-grid">
+      <!-- Stage 1 -->
+      <div class="stage-card" style="border-top: 3px solid #0284c7;">
+        <div>
+          <span class="stage-badge" style="background: #e0f2fe; color: #0369a1;">Stage 1 · Inward Inflow</span>
+          <div class="stage-title">Gate In &amp; QC Verification</div>
+          <span class="stage-actor">Gate Guard &amp; Storekeeper</span>
+          <ul class="step-list">
+            <li>Mill consignment arrival with GeM PO</li>
+            <li>Digital weighbridge gross &amp; tare logging</li>
+            <li>3-step QC: GSM, tear, moisture testing</li>
+            <li>System auto-generates <strong>GRN-2026</strong></li>
+            <li>Batch GS1 QR adhesive stickers printed</li>
+          </ul>
+        </div>
+        <div class="artifact-pill">
+          <span>Artifact:</span>
+          <strong>Inward GRN &amp; Bay QR</strong>
+        </div>
       </div>
 
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; background: #ffffff;">
-        <h4 style="color: #0f2942; font-size: 10px; text-transform: uppercase; margin-bottom: 4px;">Human Decision Points</h4>
-        <p style="font-size: 9px; color: #475569; margin: 0; line-height: 1.4;">
-          No stock is issued or adjusted without explicit Store Officer or Directorate sanction. Requesters cannot approve their own indents. Every decision is stamped with user ID, IP address, and timestamp.
-        </p>
+      <!-- Stage 2 -->
+      <div class="stage-card" style="border-top: 3px solid #0f2942;">
+        <div>
+          <span class="stage-badge" style="background: #e2e8f0; color: #0f2942;">Stage 2 · Storage &amp; Ledger</span>
+          <div class="stage-title">Warehouse Allocation &amp; Ledger</div>
+          <span class="stage-actor">Store Officer &amp; Append Ledger</span>
+          <ul class="step-list">
+            <li>Physical reel slotting: Bay 2 / Rack B</li>
+            <li>ACID ledger increments instantly (+20 Reels)</li>
+            <li>Deterministic unit conversion (MT &rarr; Reams)</li>
+            <li>Automated Reorder Level (ROL) monitoring</li>
+            <li>Banners alert if stock drops &lt;30% / &lt;15%</li>
+          </ul>
+        </div>
+        <div class="artifact-pill">
+          <span>Artifact:</span>
+          <strong>Perpetual Ledger Lock</strong>
+        </div>
       </div>
 
-      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; background: #ffffff;">
-        <h4 style="color: #0f2942; font-size: 10px; text-transform: uppercase; margin-bottom: 4px;">Closed Loop Reconciliation</h4>
-        <p style="font-size: 9px; color: #475569; margin: 0; line-height: 1.4;">
-          Unconsumed press paper is checked back into stock via Return-to-Store (RTS), and machine trimming spoilage is compared against government norms (3.5%). The loop is 100% closed.
-        </p>
+      <!-- Stage 3 -->
+      <div class="stage-card" style="border-top: 3px solid #d97706;">
+        <div>
+          <span class="stage-badge" style="background: #fef3c7; color: #b45309;">Stage 3 · Press Conversion</span>
+          <div class="stage-title">Govt Press Floor &amp; Spoilage</div>
+          <span class="stage-actor">Press Supervisor &amp; Operator</span>
+          <ul class="step-list">
+            <li>Gazette / Form job work-order linked</li>
+            <li>Mounted reel QR scanned at machine feeder</li>
+            <li>Daily production: 10,000 gazette copies</li>
+            <li>Trimming wastage tracked against <strong>3.5% CAG</strong></li>
+            <li>Unused paper returned via Return-to-Store</li>
+          </ul>
+        </div>
+        <div class="artifact-pill">
+          <span>Artifact:</span>
+          <strong>WO Job Card &amp; Spoilage Act</strong>
+        </div>
+      </div>
+
+      <!-- Stage 4 -->
+      <div class="stage-card" style="border-top: 3px solid #7c3aed;">
+        <div>
+          <span class="stage-badge" style="background: #f3e8ff; color: #6b21a8;">Stage 4 · Requisition</span>
+          <div class="stage-title">Department Indents &amp; Sanction</div>
+          <span class="stage-actor">Recipient DDO &amp; DPS Director</span>
+          <ul class="step-list">
+            <li>Online catalog indent submitted by DC Office</li>
+            <li>System verifies annual quota entitlement</li>
+            <li>DPS Director reviews &amp; grants 1-click sanction</li>
+            <li>Warehouse packs bundles &amp; prints e-Challan</li>
+            <li>Cryptographic HMAC-SHA256 QR encoded</li>
+          </ul>
+        </div>
+        <div class="artifact-pill">
+          <span>Artifact:</span>
+          <strong>e-Challan #CHL-2026</strong>
+        </div>
+      </div>
+
+      <!-- Stage 5 -->
+      <div class="stage-card" style="border-top: 3px solid #16a34a;">
+        <div>
+          <span class="stage-badge" style="background: #dcfce7; color: #15803d;">Stage 5 · Transit &amp; PoD</span>
+          <div class="stage-title">Dispatch Exit &amp; Mobile PoD</div>
+          <span class="stage-actor">Driver &amp; Recipient Nodal DDO</span>
+          <ul class="step-list">
+            <li>Gate security exit weighment &amp; pass</li>
+            <li>Driver manifest navigates delivery route</li>
+            <li>Recipient DDO scans QR on mobile PWA</li>
+            <li>Digital sign-off on glass / OTP verification</li>
+            <li><strong>Auto-Reconcile:</strong> Closes transit, syncs ledger</li>
+          </ul>
+        </div>
+        <div class="artifact-pill">
+          <span>Artifact:</span>
+          <strong>Mobile Digital PoD</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom 3-Column Governance & Architectural Grid -->
+    <div style="display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 8px; margin-top: 2px;">
+      <!-- Column 1: 5 Decision Gates -->
+      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 7px 9px; background: #ffffff;">
+        <h4 style="font-size: 9px; text-transform: uppercase; color: #0f2942; margin-bottom: 5px; display: flex; align-items: center; gap: 4px;">
+          <span style="color: #d49b24;">🛡️</span> 5 Zero-Leakage Decision Gates
+        </h4>
+        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 8px; color: #334155;">
+          <div style="background: #f8fafc; border-left: 2px solid #0284c7; padding: 3px 5px;">
+            <strong>Gate 1 (Weighbridge):</strong> Rejects PO variance exceeding &plusmn;0.5% net weight tolerance.
+          </div>
+          <div style="background: #f8fafc; border-left: 2px solid #0f2942; padding: 3px 5px;">
+            <strong>Gate 2 (Row-Lock):</strong> Blocks concurrent issue exceeding live uncommitted balances.
+          </div>
+          <div style="background: #f8fafc; border-left: 2px solid #d97706; padding: 3px 5px;">
+            <strong>Gate 3 (CAG Norm):</strong> Trimming spoilage &gt;3.5% requires directorate inquiry justification.
+          </div>
+          <div style="background: #f8fafc; border-left: 2px solid #7c3aed; padding: 3px 5px;">
+            <strong>Gate 4 (Dual-Signoff):</strong> Requester cannot sanction own indent (Strict RBAC segregation).
+          </div>
+          <div style="background: #f8fafc; border-left: 2px solid #16a34a; padding: 3px 5px;">
+            <strong>Gate 5 (Closed-Loop PoD):</strong> Transit status closes only upon verified recipient mobile sign-off.
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Material & Data Flow Synchronization -->
+      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 7px 9px; background: #ffffff;">
+        <h4 style="font-size: 9px; text-transform: uppercase; color: #0f2942; margin-bottom: 5px; display: flex; align-items: center; gap: 4px;">
+          <span style="color: #0284c7;">🔄</span> Physical vs Digital Sync
+        </h4>
+        <table style="width: 100%; border-collapse: collapse; font-size: 8px;">
+          <thead>
+            <tr style="border-bottom: 1px solid #e2e8f0; color: #64748b; text-align: left;">
+              <th style="padding: 2px 0;">Physical Material</th>
+              <th style="padding: 2px 0;">Digital Twin Artifact</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155; line-height: 1.4;">
+            <tr style="border-bottom: 1px dashed #f1f5f9;">
+              <td style="padding: 3px 0;">Raw Paper Reels (500 Kg)</td>
+              <td style="padding: 3px 0; color: #0284c7; font-weight: 600;">GS1 Batch QR Code</td>
+            </tr>
+            <tr style="border-bottom: 1px dashed #f1f5f9;">
+              <td style="padding: 3px 0;">Warehouse Bins &amp; Racks</td>
+              <td style="padding: 3px 0; color: #0284c7; font-weight: 600;">PostgreSQL Bay Map</td>
+            </tr>
+            <tr style="border-bottom: 1px dashed #f1f5f9;">
+              <td style="padding: 3px 0;">Press Job Consumption</td>
+              <td style="padding: 3px 0; color: #0284c7; font-weight: 600;">Machine Spoilage Ledger</td>
+            </tr>
+            <tr style="border-bottom: 1px dashed #f1f5f9;">
+              <td style="padding: 3px 0;">Dispatched Parcel Bundles</td>
+              <td style="padding: 3px 0; color: #0284c7; font-weight: 600;">HMAC-SHA256 e-Challan</td>
+            </tr>
+            <tr>
+              <td style="padding: 3px 0;">Delivery Acknowledgment</td>
+              <td style="padding: 3px 0; color: #16a34a; font-weight: 700;">Mobile Sign-off / OTP</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top: 5px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; padding: 3px 6px; font-size: 7.5px; color: #166534;">
+          <strong>Zero Manual Registers:</strong> Replaces peon delivery books &amp; fragmented registers statewide.
+        </div>
+      </div>
+
+      <!-- Column 3: Statutory Audit & Compliance -->
+      <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 7px 9px; background: #ffffff;">
+        <h4 style="font-size: 9px; text-transform: uppercase; color: #0f2942; margin-bottom: 5px; display: flex; align-items: center; gap: 4px;">
+          <span style="color: #16a34a;">📋</span> Statutory Compliance &amp; Audit
+        </h4>
+        <div style="display: flex; flex-direction: column; gap: 4.5px; font-size: 8px; color: #334155; line-height: 1.35;">
+          <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 3px;">
+            <strong style="color: #0f2942;">CAG Form 18 Stock Accounts:</strong> Automated monthly generation ready for principal accountant general scrutiny.
+          </div>
+          <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 3px;">
+            <strong style="color: #0f2942;">Tamper-Evident Audit Trail:</strong> Every write records User ID, IP address, role, and pre/post transaction balances.
+          </div>
+          <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 3px;">
+            <strong style="color: #0f2942;">GIGW 3.0 &amp; DPDP Act 2023:</strong> Full Indian government UI compliance, high contrast, bilingual English / অসমীয়া.
+          </div>
+          <div>
+            <strong style="color: #0f2942;">Guwahati Pilot Deployment:</strong> Ready for immediate pilot at Bamunimaidam Central Depot with zero disruption.
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1356,17 +1581,28 @@ const args = [
   '--headless=new',
   '--no-sandbox',
   '--disable-gpu',
+  '--hide-scrollbars',
+  '--no-pdf-header-footer',
   '--run-all-compositor-stages-before-draw',
-  `--print-to-pdf=${OUTPUT_PDF}`,
+  `--print-to-pdf=${OUTPUT_PDF_A4}`,
   OUTPUT_HTML
 ];
 
 spawnSync(CHROME_PATH, args, { stdio: 'inherit' });
 
-if (fs.existsSync(OUTPUT_PDF)) {
-  fs.copyFileSync(OUTPUT_PDF, OUTPUT_PDF_A4);
-  const stats = fs.statSync(OUTPUT_PDF);
-  console.log(`SUCCESS! Created clean 14-page A4 PDF: ${OUTPUT_PDF} (${stats.size} bytes)`);
+if (fs.existsSync(OUTPUT_PDF_A4)) {
+  const stats = fs.statSync(OUTPUT_PDF_A4);
+  console.log(`SUCCESS! Created clean 14-page A4 PDF: ${OUTPUT_PDF_A4} (${stats.size} bytes)`);
+  try {
+    fs.copyFileSync(OUTPUT_PDF_A4, OUTPUT_PDF);
+    console.log(`Synchronized copy: ${OUTPUT_PDF}`);
+  } catch (err) {
+    if (err.code === 'EBUSY') {
+      console.log(`NOTE: ${OUTPUT_PDF} is currently open in your viewer. Close the viewer or check ${OUTPUT_PDF_A4}.`);
+    } else {
+      console.error(err);
+    }
+  }
 } else {
   console.error('Failed to create PDF');
 }
